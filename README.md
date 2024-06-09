@@ -2,12 +2,17 @@
 Project Overview
 The Celebrity Details web application is designed to provide users with comprehensive information about various celebrities. The application allows users to search for celebrity details, view their profiles, and access additional information such as biographies, filmographies, and social media links. This project integrates multiple technologies and services to offer a seamless user experience, including Firebase for user authentication and data storage, and a third-party API for fetching celebrity details.
 
+
+
 Key Features
 User Authentication: Users can sign up for an account, log in, and access personalized features.
 Celebrity Data Retrieval: The application fetches real-time celebrity details from a third-party API.
 Profile Viewing: Users can search for and view detailed profiles of celebrities.
 Educational Content: Provides biographies, filmographies, and other relevant information about celebrities.
 Responsive Design: Ensures a seamless user experience across different devices.
+
+
+
 Technologies Used
 Frontend: HTML, CSS, EJS (Embedded JavaScript Templates)
 Backend: Node.js, Express.js
@@ -15,6 +20,8 @@ Database: Firestore (Firebase)
 Authentication: Firebase Authentication
 API Integration: API Ninjas (for celebrity details)
 Session Management: Express-session
+
+
 File Structure
 Frontend Files
 home.ejs
