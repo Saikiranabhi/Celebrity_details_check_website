@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/styles/dashboard.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="title">Celebrity Details</div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/login.html">Login</a></li>
+                    <li><a href="/signup.html">Sign Up</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section>
+        <marquee>Welcome to the Celebrity Details Dashboard!</marquee>
+        <h1>Welcome, <%= username %>!</h1>
+        <div class="search-box">
+            <form id="celebritySearchForm">
+                <input type="text" id="celebrityName" name="name" placeholder="Enter celebrity name" required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div id="celebrityInfo"></div>
+        <h2>Celebrity List</h2>
+        <ul>
+            <% celebrities.forEach(celebrity => { %>
+                <li><%= celebrity.name %> - <%= celebrity.profession %></li>
+            <% }) %>
+        </ul>
+        <h2>Add a Celebrity</h2>
+        <form action="/addCelebrity" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="text" name="profession" placeholder="Profession" required>
+            <textarea name="bio" placeholder="Bio" required></textarea>
+            <button type="submit">Add Celebrity</button>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2024 Celebrity Details. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('celebritySearchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('celebrityName').value;
+
+            fetch(`/getCelebrity?name=${name}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById('celebrityInfo').innerHTML = `<p>${data.error}</p>`;
+                    } else {
+                        const celebrity = data[0];
+                        document.getElementById('celebrityInfo').innerHTML = `
+                            <h3>${celebrity.name}</h3>
+                            <p>Net Worth: $${celebrity.net_worth}</p>
+                            <p>Gender: ${celebrity.gender}</p>
+                            <p>Nationality: ${celebrity.nationality}</p>
+                            <p>Occupation: ${celebrity.occupation.join(', ')}</p>
+                            <p>Height: ${celebrity.height}m</p>
+                            <p>Birthday: ${celebrity.birthday}</p>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching celebrity data:', error);
+                    document.getElementById('celebrityInfo').innerHTML = '<p>Error fetching data</p>';
+                });
+        });
+    </script>
+</body>
+</html>
